@@ -15,6 +15,10 @@ export default (state = defaultStates, action) => {
     return {
       user: action.payload
     }
+    case 'LOG_OUT_USER':
+    return {
+      user: defaultStates.user
+    }
     default:
       return state
   }
