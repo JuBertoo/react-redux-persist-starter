@@ -1,7 +1,7 @@
-export function authAction(userData) {
+export function authAction(userData, auth) {
   return {
     type: 'AUTH_USER',
-    payload: {userData}
+    payload: {userData, auth}
   }
 }
 
