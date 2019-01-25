@@ -32,6 +32,11 @@ export default (state = defaultStates, action) => {
         user: { isConnected: true, ...action.payload.userData },
         auth: action.payload.auth
       }
+    case 'WATCH_TOKEN':
+      if(action.payload["access-token"] != "" && action.payload["access-token"] != null && action.payload["access-token"] != undefined){
+        return {...state, auth: {...state.auth, accessToken: action.payload["access-token"]}}
+      }
+      return state
     case 'LOG_OUT_USER':
       return defaultStates
     default:

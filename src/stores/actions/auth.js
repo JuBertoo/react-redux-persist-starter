@@ -11,3 +11,10 @@ export function logOutAction() {
     payload: {}
   }
 }
+
+export function watchToken(response) {
+  return {
+    type: 'WATCH_TOKEN',
+    payload: response.headers
+  }
+}

@@ -1,21 +1,14 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { urls, headers } from '../../utils/request'
 import LunchCard from './LunchCard';
 import { NavLink } from 'react-router-dom'
+import {watchToken} from '../../stores/actions/auth'
 
 // SPINNER
-import { css } from '@emotion/core';
-// First way to import
 import { RiseLoader } from 'react-spinners';
-const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-`;
 
 class index extends Component {
   constructor(props) {
@@ -34,9 +27,12 @@ class index extends Component {
     Axios.get(urls.lunchs, { headers: { headers, ["access-token"]: accessToken, uid, client } })
       .then((response) => {
         this.setState({ lunchs: response.data.lunch, loading: false })
-        console.log(response)
+        this.props.watchToken(response)
       })
       .then((error) => console.log(error))
+  }
+  showLunch(id){
+    this.props.history.push(`/lunchs/${id}`)
   }
   render() {
     if (!this.state.loading) {
@@ -48,9 +44,9 @@ class index extends Component {
                 return (
                   <Grid
                     key={`lunchCard${lunch.id}`} item xs={12} md={4}>
-                    <NavLink to={`/lunchs/${lunch.id}`}>
+                    <div onClick={() => this.showLunch(lunch.id)}>
                       <LunchCard {...lunch} />
-                    </NavLink>
+                    </div>
                   </Grid>
                 )
               })
@@ -62,7 +58,6 @@ class index extends Component {
       return (
         <div className='RiseLoader centered-container'>
           <RiseLoader
-            css={override}
             sizeUnit={"px"}
             size={15}
             color={'#123abc'}
@@ -80,7 +75,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-
+  watchToken
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(index)
