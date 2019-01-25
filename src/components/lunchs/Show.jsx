@@ -5,7 +5,7 @@ import { urls, headers } from '../../utils/request'
 import { watchToken } from '../../stores/actions/auth'
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-
+import { RiseLoader } from 'react-spinners';
 
 export class Show extends Component {
   constructor(props) {
@@ -35,7 +35,16 @@ export class Show extends Component {
   render() {
     console.log(this.state)
     if (this.state.loading) {
-      return null
+      return (
+        <div className='RiseLoader centered-container'>
+          <RiseLoader
+            sizeUnit={"px"}
+            size={15}
+            color={'#123abc'}
+            loading={this.state.loading}
+          />
+        </div>
+      )
     } else {
       return (
         <div className="centered-container">

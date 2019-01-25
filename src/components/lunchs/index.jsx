@@ -4,7 +4,6 @@ import Axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { urls, headers } from '../../utils/request'
 import LunchCard from './LunchCard';
-import { NavLink } from 'react-router-dom'
 import {watchToken} from '../../stores/actions/auth'
 
 // SPINNER
