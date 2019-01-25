@@ -2,17 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Axios from 'axios';
 import { urls, headers } from '../../utils/request'
+import Grid from '@material-ui/core/Grid';
 import { watchToken } from '../../stores/actions/auth'
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import { RiseLoader } from 'react-spinners';
+import './styles/show.scss'
 
 export class Show extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: null,
-      loading: true
+      loading: true,
+      currentPhoto: ''
     }
   }
   componentDidMount() {
@@ -26,7 +27,7 @@ export class Show extends Component {
     const { accessToken, uid, client } = this.props.authentification.auth;
     Axios.get(`${urls.lunchs}/${id}`, { headers: { headers, ["access-token"]: accessToken, uid, client } })
       .then((response) => {
-        this.setState({ ...response.data, loading: false })
+        this.setState({ ...response.data, loading: false, currentPhoto: response.data.photo_urls[0] })
         this.props.watchToken(response)
       })
       .then((error) => console.log(error))
@@ -47,19 +48,29 @@ export class Show extends Component {
       )
     } else {
       return (
-        <div className="centered-container">
-          <div>
-            <GridList cellHeight={160} className={''} cols={2}>
-              {this.state.photo_urls.map((photo, idx, photos) => {
-                return (
-                  <GridListTile key={idx} cols={idx}>
-                    <img src={photo} alt={idx} />
-                  </GridListTile>
-                )
-              })}
-            </GridList>
-          </div>
-        </div>
+        <Grid container spacing={16} className="flex-center">
+          <Grid xs={12} md={6} item className="medias-container">
+            <div className="media-left">
+              <img src={this.state.currentPhoto} width="100%" />
+            </div>
+            <div className="media-right">
+              <ul>
+                {
+                  this.state.photo_urls.map((photo, idx) => {
+                    return (
+                      <li
+                        key={`photo${idx}`}
+                        onClick={() => this.setState({currentPhoto: photo})}
+                      >
+                        <img src={photo} width="100" />
+                      </li>
+                    )
+                  })
+                }
+              </ul>
+            </div>
+          </Grid>
+        </Grid>
       )
     }
   }

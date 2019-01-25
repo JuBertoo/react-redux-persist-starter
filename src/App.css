@@ -7,6 +7,10 @@
 .centered{
   text-align: center;
 }
+.flex-center{
+  display: flex;
+  justify-content: center;
+}
 .centered-form{
   width: 33vw;
 }
