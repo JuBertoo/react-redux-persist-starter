@@ -6,7 +6,7 @@ import Lunchs from '../components/lunchs';
 import NavBar from '../components/Navigation/NavBar';
 import ShowLunch from '../components/lunchs/Show';
 
-class AppRouter extends Component {
+class PublicRouter extends Component {
   render() {
     return (
       <React.Fragment>
@@ -34,4 +34,4 @@ const mapStateToProps = state => ({
   ...state
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppRouter));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PublicRouter));

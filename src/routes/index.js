@@ -31,4 +31,4 @@ const mapStateToProps = state => ({
   ...state
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppRouter));
