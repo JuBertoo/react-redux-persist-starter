@@ -1,25 +1,29 @@
 import React, { Component } from 'react'
-import {Switch, Route, withRouter} from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LoginForm from '../components/auth/LoginForm';
 import Lunchs from '../components/lunchs';
+import NavBar from '../components/Navigation/NavBar';
 
 class AppRouter extends Component {
   render() {
     return (
-      <Switch>
-        <Route exact path="/" component={LoginForm}/>
-        {
-          this.props.authentification.user.isConnected &&
-          <Route exact path="/lunchs" component={Lunchs}/>
-        }
-      </Switch>
+      <React.Fragment>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={LoginForm} />
+          {
+            this.props.authentification.user.isConnected &&
+            <Route exact path="/lunchs" component={Lunchs} />
+          }
+        </Switch>
+      </React.Fragment>
     )
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  
+
 })
 
 const mapStateToProps = state => ({

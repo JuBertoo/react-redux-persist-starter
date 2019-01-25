@@ -1,0 +1,12 @@
+.navbar {
+  display: flex;
+  .navlistRight, .navlistLeft {
+    width: 100%;
+    display: flex;
+    li {
+      display: inline;
+    }
+  }
+  .navlistLeft {justify-content: flex-start}
+  .navlistRight {justify-content: flex-end; margin-right: 30px;}
+}
