@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/styles';
-import classnames from 'classnames';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { MdLocalDining, MdPeople, MdEuroSymbol } from 'react-icons/md';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import moment from 'moment'
+import { truncate } from '../../utils/string'
 import './styles/card.scss'
 import 'moment/locale/fr'
 moment.locale('fr')
@@ -49,16 +45,16 @@ const useStyles = makeStyles(theme => ({
 
 export default class LunchCard extends Component {
   render() {
-    const classNames = {cardAvatar: 'lunch-card-avatar'}
-    const { title, description, author, lunch_date, photo_url } = this.props;
+    const classNames = { cardAvatar: 'lunch-card-avatar' }
+    const { title, description, author, lunch_date, photo_url, formula, supply, portion, price, participants } = this.props;
     return (
-      <Card className={"classes.card"}>
+      <Card>
         <CardHeader
           avatar={
             <CardMedia
               image={author.avatar_url}
               component='img'
-              classes={{media: "lunch-card-avatar"}}
+              classes={{ media: "lunch-card-avatar" }}
             />
           }
           action={
@@ -66,7 +62,7 @@ export default class LunchCard extends Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title={title}
+          title={truncate(title, 30)}
           subheader={moment(lunch_date).format('dddd Do, MMMM YYYY')}
         />
         <CardMedia
@@ -77,14 +73,17 @@ export default class LunchCard extends Component {
         <CardContent>
           <Typography component="p">
             {description}
-        </Typography>
+          </Typography>
         </CardContent>
-        <CardActions className={"classes.actions"}>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
+        <CardActions classes={{root: "lunch-card-actions"}}>
+          <IconButton aria-label="meal">
+            <p><MdLocalDining />{formula}</p>
           </IconButton>
-          <IconButton aria-label="Share">
-            <ShareIcon />
+          <IconButton aria-label="portion">
+            <p><MdPeople />{participants.participants_number}/{portion}</p>
+          </IconButton>
+          <IconButton aria-label="price">
+            <p><MdEuroSymbol />{price}</p>
           </IconButton>
         </CardActions>
       </Card>

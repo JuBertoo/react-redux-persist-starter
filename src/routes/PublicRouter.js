@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LoginForm from '../components/auth/LoginForm';
 import Lunchs from '../components/lunchs';
 import NavBar from '../components/Navigation/NavBar';
+import ShowLunch from '../components/lunchs/Show';
 
 class AppRouter extends Component {
   render() {
@@ -14,7 +15,10 @@ class AppRouter extends Component {
           <Route exact path="/" component={LoginForm} />
           {
             this.props.authentification.user.isConnected &&
-            <Route exact path="/lunchs" component={Lunchs} />
+            <React.Fragment>
+              <Route exact path="/lunchs" component={Lunchs} />
+              <Route exact path="/lunchs/:id" component={ShowLunch} />
+            </React.Fragment>
           }
         </Switch>
       </React.Fragment>

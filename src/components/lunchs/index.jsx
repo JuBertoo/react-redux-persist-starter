@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import { urls, headers } from '../../utils/request'
 import LunchCard from './LunchCard';
+import { NavLink } from 'react-router-dom'
 
 // SPINNER
 import { css } from '@emotion/core';
@@ -40,15 +41,22 @@ class index extends Component {
   render() {
     if (!this.state.loading) {
       return (
-        <Grid container spacing={16}>
-          {
-            this.state.lunchs.map((lunch) => {
-              return <Grid key={`lunchCard${lunch.id}`} item xs={12} md={4}>
-                <LunchCard {...lunch} />
-              </Grid>
-            })
-          }
-        </Grid>
+        <div style={{ padding: 20 }}>
+          <Grid container spacing={16} alignItems="flex-start">
+            {
+              this.state.lunchs.map((lunch) => {
+                return (
+                  <Grid
+                    key={`lunchCard${lunch.id}`} item xs={12} md={4}>
+                    <NavLink to={`/lunchs/${lunch.id}`}>
+                      <LunchCard {...lunch} />
+                    </NavLink>
+                  </Grid>
+                )
+              })
+            }
+          </Grid>
+        </div>
       )
     } else {
       return (
