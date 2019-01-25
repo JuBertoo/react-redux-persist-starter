@@ -44,7 +44,7 @@ class index extends Component {
           {
             this.state.lunchs.map((lunch) => {
               return <Grid key={`lunchCard${lunch.id}`} item xs={12} md={4}>
-                <LunchCard />
+                <LunchCard {...lunch} />
               </Grid>
             })
           }
