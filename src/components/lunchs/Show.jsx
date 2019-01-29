@@ -54,15 +54,16 @@ export class Show extends Component {
               <img src={this.state.currentPhoto} width="100%" />
             </div>
             <div className="media-right">
-              <ul>
+              <ul className="show-images-list">
                 {
                   this.state.photo_urls.map((photo, idx) => {
+                    const className = photo === this.state.currentPhoto ? 'show-images-list-element-selected' : 'show-images-list-element'
                     return (
                       <li
                         key={`photo${idx}`}
                         onClick={() => this.setState({currentPhoto: photo})}
                       >
-                        <img src={photo} width="100" />
+                        <img className={className} src={photo} width="100" />
                       </li>
                     )
                   })
