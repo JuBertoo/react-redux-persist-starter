@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Router from './routes'
 import './App.css';
 // Override material ui color here and/or use custom company colors 
